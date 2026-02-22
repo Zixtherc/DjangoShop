@@ -9,4 +9,11 @@ class ProductSerializer(serializers.Serializer):
     stock = serializers.IntegerField()
 
 class OrderSerializer(serializers.Serializer):
-    user = serializers.CharField('phone_number.') # thinking
+    user = serializers.CharField(source= 'user.email', read_only = True)
+    created_at = serializers.DateTimeField(read_only = True)
+    status = serializers.CharField(max_length=20, default='new')
+
+class OrderItemSerializer(serializers.Serializer):
+    order = serializers.IntegerField(source= 'order.id', read_only=True)
+    product = serializers.IntegerField(source= 'product.id', read_only= True)
+    quantity = serializers.IntegerField(default= 1) 
