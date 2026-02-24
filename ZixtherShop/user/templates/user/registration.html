@@ -2,4 +2,22 @@
 
 {% block content %}
     <h1>Registration</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <input type="text" name="username" class="username" placeholder="Enter your username"> 
+        <input type="number" name="number" id="" class="number" placeholder="Enter your phone number">
+        <input type="email" name="email" id="" class="email" placeholder="Enter your email">
+        <input type="password" name="password" id="" class="password" placeholder="Enter your password">
+        <input type="password" name="confirm_password" id="" class="confirm_password" placeholder="Enter your password again"> 
+        
+        {% if error %}
+            <div class="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <button type="submit" class="send_data">Submit</button>
+    </form>
 {% endblock %}
