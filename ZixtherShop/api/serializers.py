@@ -2,34 +2,56 @@ from rest_framework import serializers
 from products.models import Product
 from order.models import Order, OrderItem
 
-class ProductSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length = 255)
-    description = serializers.CharField()
-    price = serializers.DecimalField(max_digits=10, decimal_places=2)
-    stock = serializers.IntegerField()
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "name",
+            "description",
+            "price",
+            "stock",
+        ]
 
-    def info_product(self):
-        data = getattr(self, 'validated_data', None)
-        if data:
-            return data['name'], data['description'], data['price'], data['stock']
-        return data['name'], data['description'], data['price'], data['stock']
+class OrderItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(
+        source="product.name",
+        read_only=True
+    )
+    product_price = serializers.DecimalField(
+        source="product.price",
+        max_digits=10,
+        decimal_places=2,
+        read_only=True
+    )
 
-class OrderSerializer(serializers.Serializer):
-    user = serializers.CharField(source= 'user.email', read_only = True)
-    created_at = serializers.DateTimeField(read_only = True)
-    status = serializers.CharField(max_length=20, default='new')
+    class Meta:
+        model = OrderItem
+        fields = [
+            "id",
+            "product",
+            "product_name",
+            "product_price",
+            "quantity",
+        ]
 
-    def info_order(self):
-        data = getattr(self,'validated_data', None)
-        if data:
-            return data['user']['email'], data['created_at'], data['status']
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(
+        many=True,
+        read_only=True
+    )
 
-class OrderItemSerializer(serializers.Serializer):
-    order = serializers.IntegerField(source= 'order.id', read_only=True)
-    product = serializers.IntegerField(source= 'product.id', read_only= True)
-    quantity = serializers.IntegerField(default= 1) 
+    user_email = serializers.EmailField(
+        source="user.email",
+        read_only=True
+    )
 
-    def info_order(self):
-        data = getattr(self,'validated_data', None)
-        if data:
-            return data['order'], data['product'], data['quantity']
+    class Meta:
+        model = Order
+        fields = [
+            "id",
+            "user_email",
+            "created_at",
+            "status",
+            "items",
+        ]
