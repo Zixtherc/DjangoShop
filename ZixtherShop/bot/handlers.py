@@ -9,17 +9,23 @@ django.setup()
 from aiogram import types, Router, F
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.types import InlineKeyboardButton
 
 # My
 from .keyboard import main_keyboard
-from products.models import Product
+from bot.requests import create_order, get_orders, get_products
+from user.models import User
 
 # Setups
 router = Router()
 builder = InlineKeyboardBuilder()
 
+class Form(StatesGroup):
+    waiting_for_email = State()
+    
 
 #Handlers
 @router.message(Command('start'))
@@ -35,5 +41,28 @@ async def productsInfo(message: types.Message):
     await message.answer('Products.', reply_markup=main_keyboard)
 
 @router.message(F.text == 'Your Order')
-async def orderInfo(message: types.Message):
+async def orderInfo(message: types.Message, state: FSMContext):
     await message.answer('Status of your order.', reply_markup=main_keyboard)
+    await state.set_state(Form.waiting_for_email)
+
+@router.message(Form.waiting_for_email)
+async def findOrder(message: types.Message, state: FSMContext):
+    try:
+        user = User.objects.filter(email= message.text.strip().first)
+        if not user:
+            await message.answer('User not found')
+            await state.clear()
+            return 
+        response = get_orders(user_id=user.id)
+
+        if not response:
+            await message.answer("You don't have an order")
+            await state.clear()
+            return
+        
+        else:
+            text= 'Yours orders\n'
+            for order in response:
+                text += f'- Order #{order['id']}, status:{order['status']}'
+    except Exception:
+        await message.answer('An error with finding your email.')
