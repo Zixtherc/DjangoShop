@@ -1,5 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
-def render_products(request):
-    return render(request=request,template_name='products/products.html')
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .models import Product
+from ..api.serializers import ProductSerializer
+
+@api_view(['GET'])
+def product_list(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products,many= True)

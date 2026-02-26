@@ -12,6 +12,11 @@ class ProductSerializer(serializers.ModelSerializer):
             "price",
             "stock",
         ]
+    
+    def validate_stock(self,value):
+        if value < 0:
+            raise serializers.ValidationError('Stock cannot be negative.')
+        return value
 
 class OrderItemSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(
