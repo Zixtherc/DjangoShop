@@ -31,6 +31,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
             "id",
             "product",
             "product_name",
+            'description',
             "product_price",
             "quantity",
         ]

@@ -25,7 +25,6 @@ builder = InlineKeyboardBuilder()
 
 class Form(StatesGroup):
     waiting_for_email = State()
-    
 
 #Handlers
 @router.message(Command('start'))
@@ -38,6 +37,19 @@ async def info(message: types.Message):
 
 @router.message(F.text == 'Products')
 async def productsInfo(message: types.Message):
+    try:
+        response = get_products()
+        if not response:
+            await message.answer('No product in storage.')
+            return
+        
+        else:
+            text = 'All products\n'
+            for product in response:
+                text += f'- Name:{product['product_name']}, price:{product['product_price']}, description:{product['description']}, quantity{product['quantity']}.'
+                await message.answer(text)
+    except Exception:
+        await message.answer(f'An error with finding all products.')
     await message.answer('Products.', reply_markup=main_keyboard)
 
 @router.message(F.text == 'Your Order')
@@ -56,13 +68,14 @@ async def findOrder(message: types.Message, state: FSMContext):
         response = get_orders(user_id=user.id)
 
         if not response:
-            await message.answer("You don't have an order")
+            await message.answer("You don't have an order.")
             await state.clear()
             return
         
         else:
             text= 'Yours orders\n'
             for order in response:
-                text += f'- Order #{order['id']}, status:{order['status']}'
+                text += f'- Order #{order['id']}, status:{order['status']}.'
+                await message.answer(text)
     except Exception:
         await message.answer('An error with finding your email.')
