@@ -1,5 +1,12 @@
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-# Create your views here.
 def render_home(request):
-    return render(request, 'home/home.html',context={'auth': request.user.is_authenticated})
+    return render(request, 'react_app.html')
+
+@api_view(['GET'])
+def home_page(request):
+    return Response({
+        'isAuthenticated': request.user.is_authenticated
+    })
