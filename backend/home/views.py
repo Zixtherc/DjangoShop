@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 def render_home(request):
-    return render(request, 'react_app.html')
+    return render(request, 'index.html')
 
 @api_view(['GET'])
 def home_page(request):

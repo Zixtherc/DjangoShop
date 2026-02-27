@@ -19,6 +19,7 @@ export default function Home() {
   return (
     <div>
       <h1>Home Page</h1>
+      
       {products.map(product => (
         <div key={product.id}>
           <h3>{product.name}</h3>

@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - frontend_dist:/app/dist
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - ./backend:/app
+      - frontend_dist:/frontend/dist
+    ports:
+      - "8000:8000"
+    depends_on:
+      - frontend
+
+volumes:
+  frontend_dist:
