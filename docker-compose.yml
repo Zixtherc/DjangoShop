@@ -3,20 +3,21 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
     volumes:
-      - frontend_dist:/app/dist
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev 
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   backend:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    volumes:
-      - ./backend:/app
-      - frontend_dist:/frontend/dist
     ports:
       - "8000:8000"
-    depends_on:
-      - frontend
-
-volumes:
-  frontend_dist:
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app

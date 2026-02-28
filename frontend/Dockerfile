@@ -1,10 +1,12 @@
-FROM node:20 AS build-stage
+FROM node:20-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
-COPY . .
-RUN npm run build
 
-FROM alpine:latest
-WORKDIR /app
-COPY --from=build-stage /app/dist /app/dist
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]
