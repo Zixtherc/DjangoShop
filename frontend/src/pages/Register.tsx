@@ -8,6 +8,7 @@ function Register(){
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
     const [phone_number, setPhone] = useState('');
+    
     const [responseData, setResponseData] = useState(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) =>{

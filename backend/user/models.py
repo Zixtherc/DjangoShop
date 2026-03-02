@@ -10,6 +10,8 @@ class User(AbstractUser):
     )
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 
+    tg_id = models.BigIntegerField(null=True,blank=True,unique=True)
+
     USERNAME_FIELD = 'username'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS  = ['email']

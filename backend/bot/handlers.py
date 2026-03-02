@@ -60,7 +60,7 @@ async def orderInfo(message: types.Message, state: FSMContext):
 @router.message(Form.waiting_for_email)
 async def findOrder(message: types.Message, state: FSMContext):
     try:
-        user = User.objects.filter(email= message.text.strip().first)
+        user = User.objects.filter(email=message.text.strip()).update(tg_id=message.from_user.id)
         if not user:
             await message.answer('User not found')
             await state.clear()
