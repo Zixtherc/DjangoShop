@@ -1,8 +1,8 @@
-import aiohttp
+from products.models import Product
 
-async def get_products():
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
-            'http://127.0.0.1:8000/api/products/'
-        ) as response:
-            return await response.json()
+async def get_product(filter: str = None):
+    queryset = Product.objects.all()
+    products = []
+    async for product in queryset:
+        products.append(product)
+    return products

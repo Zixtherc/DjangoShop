@@ -1,12 +1,8 @@
-import aiohttp
+from order.models import Order
 
 async def get_orders(user_id: int):
-    params = {
-        'user': user_id
-    }
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
-            'http://127.0.0.1:8000/api/orders/',
-            params=params
-        ) as response:
-            return await response.json()
+    queryset = Order.objects.filter(user_id=user_id).values('id', 'status')
+    orders = []
+    async for order in queryset:
+        orders.append(order)
+    return orders
