@@ -4,7 +4,8 @@ main_keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text='Your Order'),
-            KeyboardButton(text='Products'),
+            KeyboardButton(text='Create Order'),
+            KeyboardButton(text='Catalog'),
             KeyboardButton(text='Info')
         ]
     ],

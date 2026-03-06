@@ -19,7 +19,7 @@ builder = InlineKeyboardBuilder()
 class Form(StatesGroup):
     waiting_for_email = State()
 
-@products_router.message(F.text == 'Products')
+@products_router.message(F.text == 'Catalog')
 async def productsInfo(message: types.Message):
     try:
         response = await get_product()

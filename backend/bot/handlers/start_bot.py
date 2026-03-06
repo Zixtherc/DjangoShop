@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 # My
-from ..keyboard import main_keyboard
+from ..keyboards.main_kb import main_keyboard
 
 # Setups
 builder = InlineKeyboardBuilder()

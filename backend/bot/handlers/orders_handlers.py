@@ -12,7 +12,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 # My
-from ..keyboard import main_keyboard
+from ..keyboards.main_kb import main_keyboard
+from ..keyboards.order_kb import creating_order
 from bot.requests import create_order, get_orders
 from user.models import User
 
@@ -58,3 +59,7 @@ async def findOrder(message: types.Message, state: FSMContext):
     
     finally:
         await state.clear()
+
+@order_router.message(F.text == 'Create Order')
+async def orderInfo(message: types.Message, state: FSMContext):
+    await message.answer('Creating your order.', reply_markup=creating_order)
