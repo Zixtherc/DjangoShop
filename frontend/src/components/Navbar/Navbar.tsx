@@ -1,11 +1,15 @@
+import styles from './Navbar.module.css'
+
 function NavBar(){
     const token = localStorage.getItem("token")
 
     return(
-        <nav>   
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/cart">Cart</a>
+        <nav className={styles.nav}>   
+            <div className={styles.links}>
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/cart">Cart</a>
+            </div>
             {token ?(
                 <button onClick={() => {
                     localStorage.removeItem('token');

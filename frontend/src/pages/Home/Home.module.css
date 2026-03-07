@@ -1,0 +1,7 @@
+.introduce {
+  background: #121212;
+  color: white;
+  padding: 80px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
