@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'; 
 import Navbar from '../components/Navbar/Navbar';
-import './layout.module.css';
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,7 +7,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="layout-container">
+    <div>
       <div className="monolith-box">
         <Navbar />
         <main className="content-area">

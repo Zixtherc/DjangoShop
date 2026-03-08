@@ -6,10 +6,11 @@ function NavBar(){
     return(
         <nav className={styles.nav}>   
             <div className={styles.links}>
-                <a href="/">Home</a>
-                <a href="/about">About</a>
-                <a href="/products">Products</a>
-                <a href="/cart">Cart</a>
+                    <a href="/"><b>//</b>Home<b>/</b></a>
+                    <a href="/about"><b>\\∩[</b>About<b>].//</b></a>
+                    <a href="/products"><b>//</b>Products<b>/Σ</b></a>
+                    <a href="/cart"><b>.(х)</b>Cart<b>∫∅</b></a>
+                    <a href="https://t.me/Zixther"><b>{'<'}13</b>Contact<b>/{'>'}</b></a>
             </div>
             {token ?(
                 <button onClick={() => {
@@ -18,7 +19,7 @@ function NavBar(){
                 }}>Logout</button>
 
             ): (
-                <a href="/login">Login</a>
+                <a href="/login" className={styles.loginLink}><b>∬</b>Login<b>λ</b></a>
             )}
         </nav>
     )

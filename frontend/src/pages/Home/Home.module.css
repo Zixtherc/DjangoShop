@@ -4,17 +4,24 @@
   background-color: #0a0a0a;
 
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
-    linear-gradient(990deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
-    linear-gradient(360deg ,rgba(255, 255, 255, 0.3) 1px, transparent 1px),
-    linear-gradient(900deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
-    linear-gradient(810deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-background-size: 
-  400px 400px, 
-  600px 60px, 
-  300px 300px, 
-  500px 500px, 
-  800px 800px;
+    linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(990deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(360deg ,rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    linear-gradient(900deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+    linear-gradient(740deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(360deg ,rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(360deg ,rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+    linear-gradient(360deg ,rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 
+            450px 250px,
+            300px 550px,
+            100px 81200px,
+            100px 550px,
+            800px 800px,
+            200px 700px,
+            500px 650px,
+            290px 500px;
+            
   
   position: relative;
   overflow: hidden;
@@ -24,5 +31,80 @@ background-size:
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.introduce h1 {
+    position: absolute;
+    margin: 0;
+    color: #fff;
+    line-height: 0.9;
+    text-transform: uppercase;
+    pointer-events: none;
+
+}
+
+/* /* 1. QUANTUM {FIELDS} */
+.introduce h1:nth-child(1) {
+    top: 20%;
+    left: 15%;
+    font-size: 80px;
+    font-weight: 800;
+    letter-spacing: -4px;
+}
+
+/* 2. {FLUX} */
+.introduce h1:nth-child(2) {
+    top: 35%;
+    right: 20%;
+    font-size: 42px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+.introduce h1:nth-child(2)::before {
+    content: "Δ ";
+    font-weight: 200;
+}
+
+/* 3. ::[0110]:: */
+.introduce h1:nth-child(3) {
+    bottom: 20%;
+    left: 10%;
+    font-size: 32px;
+    font-family: 'Courier New', monospace;
+    background-color: #fff;
+    color: #000;
+    padding: 8px 20px;
+    letter-spacing: 0;
+}
+
+/* 4. Σ  */
+.introduce h1:nth-child(4) {
+    top: 5%;
+    right: 10%;
+    font-size: 160px;
+    font-weight: 100;
+    opacity: 0.15;
+}
+
+/* 5. π  */
+.introduce h1:nth-child(5) {
+    bottom: 30%;
+    right: 35%;
+    font-size: 120px;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    text-transform: lowercase;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.introduce h1:nth-child(6) {
+    bottom: 50%;
+    left: 10%;
+    color: rgb(255, 255, 255);
+    font-size: 50px;
+    font-weight: 15%;   
+    opacity: 0.15;
+    letter-spacing: -2px;
 }
 

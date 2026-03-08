@@ -5,21 +5,30 @@ import { useSmoothScroll } from '../../components/ScrollTo/ScrollTo';
 
 import styles from "./Home.module.css"
 
+const symbols = [
+    "QUANTUM {FIELDS}",
+    "{FLUX}",
+    "::[0110]::",
+    "Σ",
+    "π",
+    '3.14159265359',
+];
+
 function Home() {
 
     return(
         <div className={styles.grid}>
             <div className={styles.introduce}>
-                <h1>QUANTUM {"{FIELDS}"}</h1>
-                <h1>{'{FLUX}'}</h1>
-                <h1>::[0110]::</h1>
-                <h1>Σ</h1>
-                <h1>𝝅</h1>
+                {symbols.map((text, index) => (
+                    <h1 key={index} className={styles.symbol}>
+                        {text}
+                    </h1>
+                    
+                ))}
             </div>
         </div>
 
     )
-
 }
 
 export default Home
