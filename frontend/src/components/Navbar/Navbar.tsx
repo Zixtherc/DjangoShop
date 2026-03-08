@@ -8,6 +8,7 @@ function NavBar(){
             <div className={styles.links}>
                 <a href="/">Home</a>
                 <a href="/about">About</a>
+                <a href="/products">Products</a>
                 <a href="/cart">Cart</a>
             </div>
             {token ?(
