@@ -12,3 +12,4 @@ venv/
 
 images/
 migrations/
+node_modules/

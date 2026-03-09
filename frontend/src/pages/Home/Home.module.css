@@ -108,3 +108,9 @@
     letter-spacing: -2px;
 }
 
+.sphereBack{
+    position: absolute;
+    top: -20%;
+    right: 45%;
+    opacity: 0.8;
+}

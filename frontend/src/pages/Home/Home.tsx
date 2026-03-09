@@ -2,7 +2,8 @@
 import React from "react";
 // @ts-ignore
 import { useSmoothScroll } from '../../components/ScrollTo/ScrollTo';
-
+// @ts-ignore
+import SphereScene from '../../components/GeometricalWireFrame/Sphere';
 import styles from "./Home.module.css"
 
 const symbols = [
@@ -23,8 +24,8 @@ function Home() {
                     <h1 key={index} className={styles.symbol}>
                         {text}
                     </h1>
-                    
                 ))}
+                <SphereScene className={styles.sphereBack} />
             </div>
         </div>
 
