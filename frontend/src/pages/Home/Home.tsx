@@ -4,6 +4,9 @@ import React from "react";
 import { useSmoothScroll } from '../../components/ScrollTo/ScrollTo';
 // @ts-ignore
 import SphereScene from '../../components/GeometricalWireFrame/Sphere';
+// @ts-ignore
+import GravityGrid from "../../components/GeometricalWireFrame/Plane";
+
 import styles from "./Home.module.css"
 
 const symbols = [
@@ -25,6 +28,7 @@ function Home() {
                         {text}
                     </h1>
                 ))}
+                <GravityGrid />
                 <SphereScene className={styles.sphereBack} />
             </div>
         </div>
