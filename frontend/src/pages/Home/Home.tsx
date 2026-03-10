@@ -7,7 +7,10 @@ import SphereScene from '../../components/GeometricalWireFrame/Sphere';
 // @ts-ignore
 import GravityGrid from "../../components/GeometricalWireFrame/Plane";
 
+import {getDataApi} from '../../api/api.ts'
+
 import styles from "./Home.module.css"
+
 
 const symbols = [
     "QUANTUM {FIELDS}",
@@ -23,6 +26,15 @@ const symbols = [
 
 
 function Home() {
+    const [products, setProducts ] = React.useState('');
+
+    React.useEffect(() => {
+        const load = async () => {
+            const data = await getDataApi('products');
+            setProducts(data)
+        };
+        load();
+    }, []);
 
     return(
         <>
@@ -38,11 +50,11 @@ function Home() {
 
         </div>
             
-
-        <div className={styles.products_grid}>
-            <div className={styles.products}>
-                <h1>//Products[ ]</h1>
-            </div>
+        <div className={styles.products}>
+            
+            <h1>//Products[ ]</h1>
+            <p>{products}</p>
+            
         </div>
         </>
     )
