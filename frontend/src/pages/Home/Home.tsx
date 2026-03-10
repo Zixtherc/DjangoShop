@@ -16,11 +16,16 @@ const symbols = [
     "Σ",
     "π",
     '3.14159265359',
+    '∫',
+    '∅',
 ];
+
+
 
 function Home() {
 
     return(
+        <>
         <div className={styles.grid}>
             <div className={styles.introduce}>
                 {symbols.map((text, index) => (
@@ -28,11 +33,18 @@ function Home() {
                         {text}
                     </h1>
                 ))}
-                <GravityGrid />
                 <SphereScene className={styles.sphereBack} />
             </div>
-        </div>
 
+        </div>
+            
+
+        <div className={styles.products_grid}>
+            <div className={styles.products}>
+                <h1>//Products[ ]</h1>
+            </div>
+        </div>
+        </>
     )
 }
 
