@@ -10,23 +10,29 @@ from aiogram import types, Router, F
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import InlineKeyboardButton
 
 # My
 from ..keyboards.main_kb import main_keyboard
 from ..keyboards.order_kb import creating_order
-from bot.requests import create_order, get_orders
+from bot.requests import create_order, get_orders, get_categories
 from user.models import User
 
 # Setups
 order_router = Router()
-builder = InlineKeyboardBuilder()
 
 class Form(StatesGroup):
     waiting_for_email = State()
 
+    choosing_category = State()
+    waiting_for_name = State()
+    waiting_for_description = State()
+
+    create_order_email = State()
+
 @order_router.message(F.text == 'Your Order')
 async def orderInfo(message: types.Message, state: FSMContext):
-    await message.answer('Send your email.', reply_markup=main_keyboard)
+    await message.answer('Send your email.', reply_markup=creating_order)
     await state.set_state(Form.waiting_for_email)
 
 @order_router.message(Form.waiting_for_email)
@@ -61,5 +67,34 @@ async def findOrder(message: types.Message, state: FSMContext):
         await state.clear()
 
 @order_router.message(F.text == 'Create Order')
-async def orderInfo(message: types.Message, state: FSMContext):
-    await message.answer('Creating your order.', reply_markup=creating_order)
+async def creatingOrder(message: types.Message, state: FSMContext):
+    category_builder = InlineKeyboardBuilder()
+    categories = await get_categories()
+    for category in categories:
+        category_builder.add(
+            InlineKeyboardButton(
+                text=category.category_name,
+                callback_data=f'category_{category.id}',
+        )
+    )
+    await message.answer('Choose category.', reply_markup=creating_order)
+    await state.set_state(Form.choosing_category)
+
+@order_router.message(Form.choosing_category)
+async def creatingOrder(message: types.message, state: FSMContext):
+    pass
+    # category_builder = InlineKeyboardBuilder()
+    # categories = await get_categories()
+
+    # if not categories:
+    #     await message.answer('Category error.')
+    #     return
+
+    # for category in categories:
+    #     category_builder.add(
+    #         InlineKeyboardButton(
+    #             text=category.category_name,
+    #             callback_data=f'category_{category.id}',
+    #     )
+    # )
+    # await message.answer('Choose product category:', category_builder.adjust(3).as_markup())

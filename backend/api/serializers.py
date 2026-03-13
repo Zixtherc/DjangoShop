@@ -3,6 +3,8 @@ from products.models import Product
 from order.models import Order, OrderItem
 
 class ProductSerializer(serializers.ModelSerializer):
+    category_name = serializers.ReadOnlyField(source='category.category_name')
+
     class Meta:
         model = Product
         fields = [
@@ -11,6 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "stock",
+            'image',
         ]
     
     def validate_stock(self,value):
