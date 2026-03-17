@@ -3,148 +3,72 @@
 Simple e-commerce backend built with Django.
 
 ## Description
+**DjangoShop** is a lightweight online store backend developed with Python and Django. The project demonstrates a standard e-commerce architecture, including product management, order processing, and relational data mapping between users and their purchases.
 
-DjangoShop is a simple online store backend written with Django.  
-The project demonstrates the basic architecture of an e-commerce system including products, orders and order items.
-
-It was created as a learning project to practice backend development with Django, relational databases and application structure.
+It was created as a learning project to practice backend development, relational database design (SQL), and Django ORM.
 
 ---
 
 ## Features
-
-- Product management
-- Order creation
-- Order items with quantity
-- User-based orders
-- Django ORM models
-- Django admin support
+* **Product Management:** Full CRUD capabilities via Django Admin.
+* **Order System:** User-based order creation and tracking.
+* **Order Items:** Support for multiple products within a single order with quantity tracking.
+* **Django Admin Integration:** Pre-configured administrative interface for managing the store.
+* **Clean Architecture:** Separation of concerns between models, views, and routing.
 
 ---
 
 ## Tech Stack
-
-- Python
-- Django
-- SQLite (default Django database)
-- Django ORM
+* **Language:** Python 3.x
+* **Framework:** Django
+* **Database:** SQLite (default Django database)
+* **ORM:** Django Object-Relational Mapper
 
 ---
 
 ## Project Structure
-
-```
+```text
 DjangoShop/
 │
-├── shop/              # Main application
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
+├── shop/               # Core application logic
+│   ├── admin.py        # Admin panel configurations
+│   ├── models.py       # Database schemas (Product, Order, OrderItem)
+│   ├── views.py        # Logic for processing requests
+│   └── urls.py         # App-specific routing
 │
-├── DjangoShop/        # Project settings
+├── DjangoShop/         # Project settings and configuration
 │   ├── settings.py
-│   ├── urls.py
+│   └── urls.py
 │
-├── manage.py
-└── db.sqlite3
+├── manage.py           # Django management utility
+└── db.sqlite3          # Local database file
 ```
 
----
+# Datamodels 
 
-## Installation
+## Order
+### Represents a specific order placed by a user.
 
-Clone the repository:
+* user: Reference to the Django User model.
+* created_at: Date and time when the order was placed.
+* status: Current status of the order.
 
-```bash
-git clone https://github.com/Zixtherc/DjangoShop.git
-cd DjangoShop
-```
+# OrderItem
 
-Create virtual environment:
+### Links a specific product to an order. 
 
-```bash
-python -m venv venv
-```
-
-Activate environment:
-
-Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-Windows
-
-```bash
-venv\Scripts\activate
-```
-
-Install dependencies:
-
-```bash
-pip install django
-```
-
----
-
-## Run the Project
-
-Apply migrations:
-
-```bash
-python manage.py migrate
-```
-
-Run development server:
-
-```bash
-python manage.py runserver
-```
-
-Open in browser:
-
-```
-http://127.0.0.1:8000/
-```
-
----
-
-## Models
-
-### Order
-
-Represents a user order.
-
-Fields:
-
-- `user` — reference to Django User
-- `created_at` — order creation date
-- `status` — order status
-
-### OrderItem
-
-Represents a product inside an order.
-
-Fields:
-
-- `order` — reference to Order
-- `product` — reference to Product
-- `quantity` — number of items
-
----
+* order: Reference to the parent Order.
+* product: Reference to the Product being purchased.
+* quantity: The number of units for this specific product.
 
 ## Future Improvements
+- [ ] **Shopping cart implementation:** Managing temporary selections using Django sessions.
+- [ ] **REST API development:** Building endpoints via Django REST Framework for frontend integration.
+- [ ] **Payment gateway integration:** Secure transaction handling with providers like Stripe or PayPal.
+- [ ] **Product image support:** Implementing media handling and storage for item visuals.
+- [ ] **Advanced filtering and search:** Improved user experience with category, price, and keyword queries.
 
-- Shopping cart
-- REST API (Django REST Framework)
-- Payment integration
-- Product images
-- Pagination and filtering
-- Authentication improvements
 
----
-
-## Author
-
-David (Zixther)
+# Author
+### David (Zixther)
+### GitHub: Zixtherc
