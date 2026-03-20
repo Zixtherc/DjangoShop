@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import styles from './Login.module.css';
+
+const symbols = [
+    "ROOT [ESCALATION/]",
+    "0x7FFFD28B",
+    "λ",
+    "101001100011",
+    "::[SYSTEM_INIT]::",
+    "0xDEADC0DE",
+    "//dev/null",
+    "system_call: 0x80",
+]
+
 function Login(){
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
@@ -28,12 +41,24 @@ function Login(){
             catch(error){console.error();}
     };
     return(
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Username" value={username} onChange={event => setUsername(event.target.value)}/>
-            <input type="password" placeholder="Password" value={password} onChange={event => setPassword(event.target.value)}/>
-            <button type="submit">Login</button>    
-            {responseData}
-        </form>
+        <>
+        <div className={styles.gridLogin}>
+            <div className={styles.loginSymbols}>
+                {symbols.map((text, index) => (
+                    <h1 key={index}>
+                        {text}
+                    </h1>
+                    ))}
+            </div>
+            <form onSubmit={handleSubmit} className={styles.formLogin}>
+                <input type="text" placeholder="Username" value={username} onChange={event => setUsername(event.target.value)}/>
+                <input type="password" placeholder="Password" value={password} onChange={event => setPassword(event.target.value)}/>
+                <button type="submit" className={styles.submitBtn}>Login</button>    
+                {responseData}
+            </form>
+        </div>
+
+        </>
     )
 }
 export default Login
