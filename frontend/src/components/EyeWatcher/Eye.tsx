@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { div } from 'three/tsl';
 
 const Eye: React.FC = () => {
   const [angle, setAngle] = useState(0);

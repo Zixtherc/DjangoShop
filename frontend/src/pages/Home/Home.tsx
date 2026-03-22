@@ -51,11 +51,25 @@ function Home() {
         </div>
             
         <div className={styles.products}>
+            <h1>//Products [ ]</h1>
             
-            <h1>//Products[ ]</h1>
-            <p>{products}</p>
-            
-        </div>
+            {/* Проверяем, что products — это массив, и перебираем его */}
+            {Array.isArray(products) && products.map((product) => (
+                <div key={product.id} style={{ marginBottom: '20px', border: '1px solid #333', padding: '10px' }}>
+                <h2>{product.name}</h2>
+                <p>{product.description}</p>
+                <span>Price: {product.price}</span>
+                
+                {/* Добавляем картинку */}
+                {product.image && (
+                    <img 
+                    src={`http://127.0.0.1:8000${product.image}`} 
+                    alt={product.name} 
+                    />
+                )}
+                </div>
+            ))}
+            </div>
         </>
     )
 }
