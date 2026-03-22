@@ -14,6 +14,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "price",
             "stock",
             'image',
+            'category_name',
         ]
     
     def validate_stock(self,value):

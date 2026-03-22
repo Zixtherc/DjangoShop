@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import styles from './Login.module.css';
 
+import Eye from "../../components/EyeWatcher/Eye";
+
 const symbols = [
     "ROOT [ESCALATION/]",
     "0x7FFFD28B",
@@ -49,6 +51,10 @@ function Login(){
                         {text}
                     </h1>
                     ))}
+                    <div style={{ position: 'absolute', top: '15%', left: '20%' }}><Eye /></div>
+                    <div style={{ position: 'absolute', top: '70%', left: '10%' }}><Eye /></div>
+                    <div style={{ position: 'absolute', top: '25%', right: '15%' }}><Eye /></div>
+                    <div style={{ position: 'absolute', top: '80%', right: '25%' }}><Eye /></div>
             </div>
             <form onSubmit={handleSubmit} className={styles.formLogin}>
                 <input type="text" placeholder="Username" value={username} onChange={event => setUsername(event.target.value)}/>
