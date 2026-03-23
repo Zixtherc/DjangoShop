@@ -9,6 +9,8 @@ import GravityGrid from "../../components/GeometricalWireFrame/Plane";
 
 import {getDataApi} from '../../api/api.ts'
 
+
+import { Link } from 'react-router-dom';
 import styles from "./Home.module.css"
 
 
@@ -53,19 +55,18 @@ function Home() {
         <div className={styles.products}>
             <h1>//Products [ ]</h1>
             
-            {/* Проверяем, что products — это массив, и перебираем его */}
             {Array.isArray(products) && products.map((product) => (
-                <div key={product.id} style={{ marginBottom: '20px', border: '1px solid #333', padding: '10px' }}>
+                <div key={product.id}>
                 <h2>{product.name}</h2>
-                <p>{product.description}</p>
-                <span>Price: {product.price}</span>
-                
-                {/* Добавляем картинку */}
+                <span>Price: {Math.floor(product.price)}</span>
                 {product.image && (
-                    <img 
-                    src={`http://127.0.0.1:8000${product.image}`} 
-                    alt={product.name} 
-                    />
+                    <Link to={`/product/${product.id}`}>
+                        <img 
+                            src={`http://127.0.0.1:8000${product.image}`} 
+                            alt={product.name} 
+                            style={{ cursor: 'pointer', display: 'block' }} 
+                        />
+                    </Link>
                 )}
                 </div>
             ))}
