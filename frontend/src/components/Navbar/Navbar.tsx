@@ -1,29 +1,38 @@
-import styles from './Navbar.module.css'
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './Navbar.module.css';
 
-function NavBar(){
-    const token = localStorage.getItem("token")
+function NavBar() {
+    const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
-    return(
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login'); 
+    };
+
+    return (
         <nav className={styles.nav}>   
             <div className={styles.links}>
-                    <a href="/"><b>//</b>Home<b>/</b></a>
-                    <a href="/about"><b>\\∩[</b>About<b>].//</b></a>
-                    <a href="/products"><b>//</b>Products<b>/Σ</b></a>
-                    <a href="/cart"><b>.(х)</b>Cart<b>∫∅</b></a>
-                    <a href="https://t.me/Zixther"><b>{'<'}13</b>Contact<b>/{'>'}</b></a>
+                <Link to="/"><b>//</b>Home<b>/</b></Link>
+                <Link to="/about"><b>\\∩[</b>About<b>].//</b></Link>
+                <Link to="/products"><b>//</b>Products<b>/Σ</b></Link>
+                <Link to="/cart"><b>.(х)</b>Cart<b>∫∅</b></Link>
+                <a href="https://t.me/Zixther" target="_blank" rel="noreferrer">
+                    <b>{'<'}13</b>Contact<b>/{'>'}</b>
+                </a>
             </div>
-            {token ?(
-                <button onClick={() => {
-                    localStorage.removeItem('token');
-                    window.location.reload();
-                }}>Logout</button>
 
-            ): (
-                <a href="/login" className={styles.loginLink}><b>∬</b>Login<b>λ</b></a>
+            {token ? (
+                <button onClick={handleLogout} className={styles.logoutBtn}>
+                    Logout
+                </button>
+            ) : (
+                <Link to="/login" className={styles.loginLink}>
+                    <b>∬</b>Login<b>λ</b>
+                </Link>
             )}
         </nav>
-    )
-
+    );
 }
 
 export default NavBar;

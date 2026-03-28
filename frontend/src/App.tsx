@@ -5,6 +5,8 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import Products from "./pages/Products/Products";
 
+import ProductDetail from './components/ProductsDetail/ProductsDetail'
+
 import Layout from './layouts/layout'
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/products" element={<Products/>}/>
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </Layout>
     </BrowserRouter>

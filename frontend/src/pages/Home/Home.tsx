@@ -60,7 +60,9 @@ function Home() {
                 <h2>{product.name}</h2>
                 <span>Price: {Math.floor(product.price)}</span>
                 {product.image && (
-                    <Link to={`/product/${product.id}`}>
+                    <Link 
+                    to={`/product/${product.id}`}
+                    state={{product}}>
                         <img 
                             src={`http://127.0.0.1:8000${product.image}`} 
                             alt={product.name} 
