@@ -5,7 +5,7 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import Products from "./pages/Products/Products";
 
-import ProductDetail from './components/ProductsDetail/ProductsDetail'
+import ProductDetail from './pages/ProductsDetail/ProductsDetail'
 
 import Layout from './layouts/layout'
 

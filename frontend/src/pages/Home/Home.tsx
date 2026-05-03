@@ -58,13 +58,13 @@ function Home() {
             {Array.isArray(products) && products.map((product) => (
                 <div key={product.id}>
                 <h2>{product.name}</h2>
-                <span>Price: {Math.floor(product.price)}</span>
+                <span>{Math.floor(product.price)}: ₴</span>
                 {product.image && (
                     <Link 
                     to={`/product/${product.id}`}
                     state={{product}}>
                         <img 
-                            src={`http://127.0.0.1:8000${product.image}`} 
+                            src={`http://localhost:8000${product.image}`}
                             alt={product.name} 
                             style={{ cursor: 'pointer', display: 'block' }} 
                         />

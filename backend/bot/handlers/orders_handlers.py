@@ -10,13 +10,15 @@ from aiogram import types, Router, F
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.types import InlineKeyboardButton
+from aiogram.types import InlineKeyboardButton, FSInputFile
 
 # My
 from ..keyboards.main_kb import main_keyboard
 from ..keyboards.order_kb import creating_order
-from bot.requests import create_order, get_orders, get_categories
+from bot.requests import create_order, get_orders, get_categories, get_product
 from user.models import User
+from ZixtherShop.settings import BASE_DIR
+
 
 # Setups
 order_router = Router()
@@ -67,7 +69,7 @@ async def findOrder(message: types.Message, state: FSMContext):
         await state.clear()
 
 @order_router.message(F.text == 'Create Order')
-async def creatingOrder(message: types.Message, state: FSMContext):
+async def choosingCategory(message: types.Message, state: FSMContext):
     category_builder = InlineKeyboardBuilder()
     categories = await get_categories()
     for category in categories:
@@ -77,24 +79,48 @@ async def creatingOrder(message: types.Message, state: FSMContext):
                 callback_data=f'category_{category.id}',
         )
     )
-    await message.answer('Choose category.', reply_markup=creating_order)
-    await state.set_state(Form.choosing_category)
+    await message.answer(
+        'Choose category:', 
+        reply_markup=category_builder.adjust(2).as_markup()
+    )
 
-@order_router.message(Form.choosing_category)
-async def creatingOrder(message: types.message, state: FSMContext):
-    pass
-    # category_builder = InlineKeyboardBuilder()
-    # categories = await get_categories()
+@order_router.callback_query(F.data.startswith('category_'))
+async def choosingProducts(callback: types.CallbackQuery):
+    category_id = callback.data.split('_')[-1]
+    
+    products = await get_product(category_id=category_id)
+    
+    if not products:
+        await callback.message.answer("No products in this category.")
+        await callback.answer()
+        return
 
-    # if not categories:
-    #     await message.answer('Category error.')
-    #     return
+    for product in products:
+        buy_builder = InlineKeyboardBuilder()
+        buy_builder.add(types.InlineKeyboardButton(
+            text=f"Buy {product.name}",
+            callback_data=f"buy_{product.id}")
+        )
+        image_path = os.path.join(BASE_DIR, 'media', str(product.image))
+        
+        caption_text = f"{product.name}\n\n{product.description}\n\nPrice: {product.price} ₴"
 
-    # for category in categories:
-    #     category_builder.add(
-    #         InlineKeyboardButton(
-    #             text=category.category_name,
-    #             callback_data=f'category_{category.id}',
-    #     )
-    # )
-    # await message.answer('Choose product category:', category_builder.adjust(3).as_markup())
+        if os.path.exists(image_path):
+            await callback.message.answer_photo(
+                photo=FSInputFile(image_path),
+                caption=caption_text,
+                reply_markup=buy_builder.as_markup(),
+                parse_mode="Markdown"
+            )
+        else:
+            await callback.message.answer(
+                f"{caption_text}\nLost Photo.",
+                reply_markup=buy_builder.as_markup(),
+                parse_mode="Markdown"
+            )
+        await callback.answer()
+
+@order_router.callback_query(F.data.startswith('buy_'))
+async def buyProduct(callback: types.callback_query):
+    product = callback.data.split('_')[-1]
+    # progress
