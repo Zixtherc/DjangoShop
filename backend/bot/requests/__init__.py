@@ -3,3 +3,4 @@ from .get_order import get_orders
 from .get_products import get_product
 from .get_categories import get_categories
 from .add_to_cart import add_to_cart
+from .view_cart import view_cart
